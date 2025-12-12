@@ -165,8 +165,13 @@ function handleRegister(e) {
         hasErrors = true;
     }
 
-    if (!password || password.length < 4) {
-        showError('registerPasswordError', 'La contraseña debe tener al menos 4 caracteres');
+    // Validar contraseña con regex
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^A-Za-z0-9])\S{8,}$/;
+    if (!password) {
+        showError('registerPasswordError', 'La contraseña es obligatoria');
+        hasErrors = true;
+    } else if (!passwordRegex.test(password)) {
+        showError('registerPasswordError', 'La contraseña debe tener mínimo 8 caracteres, incluir mayúscula, minúscula, número y carácter especial');
         hasErrors = true;
     }
 
@@ -980,7 +985,22 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 
+// Función para mostrar/ocultar contraseña
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    const button = input.parentElement.querySelector('.toggle-password');
+
+    if (input.type === 'password') {
+        input.type = 'text';
+        button.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        button.textContent = '👁️';
+    }
+}
+
 // Hacer funciones globales para los onclick en HTML
 window.addToCart = addToCart;
 window.updateQuantity = updateQuantity;
 window.removeFromCart = removeFromCart;
+window.togglePassword = togglePassword;
