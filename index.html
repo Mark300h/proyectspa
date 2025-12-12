@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spa de Mascotas - Sistema de Gestión</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Sección de Login/Registro -->
+    <section id="loginSection" class="login-container">
+        <div class="login-card">
+            <h1>🐾 Spa de Mascotas</h1>
+            
+            <!-- Formulario de Login -->
+            <div id="loginForm" class="auth-form">
+                <h2>Iniciar Sesión</h2>
+                <form id="loginFormElement">
+                    <div class="input-group">
+                        <label for="username">Correo Electrónico:</label>
+                        <input type="email" id="username" name="username" placeholder="ejemplo@gmail.com" required>
+                        <span class="error-message" id="usernameError"></span>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" required>
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </form>
+                <button id="switchToRegisterBtn" class="btn btn-secondary btn-full">Crear Cuenta</button>
+            </div>
+
+            <!-- Formulario de Registro -->
+            <div id="registerForm" class="auth-form hidden">
+                <h2>Crear Cuenta</h2>
+                <form id="registerFormElement">
+                    <div class="input-group">
+                        <label for="registerUsername">Correo Electrónico:</label>
+                        <input type="email" id="registerUsername" name="registerUsername" placeholder="ejemplo@gmail.com" required>
+                        <span class="error-message" id="registerUsernameError"></span>
+                    </div>
+                    <div class="input-group">
+                        <label for="registerPassword">Contraseña:</label>
+                        <input type="password" id="registerPassword" name="registerPassword" placeholder="Mínimo 4 caracteres" required>
+                        <span class="error-message" id="registerPasswordError"></span>
+                    </div>
+                    <div class="input-group">
+                        <label for="registerPasswordConfirm">Confirmar Contraseña:</label>
+                        <input type="password" id="registerPasswordConfirm" name="registerPasswordConfirm" required>
+                        <span class="error-message" id="registerPasswordConfirmError"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Crear Cuenta</button>
+                </form>
+                <button id="switchToLoginBtn" class="btn btn-secondary btn-full">Volver a Login</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Aplicación Principal -->
+    <div id="appContainer" class="hidden">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h1>🐾 Spa de Mascotas</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" data-section="registro" class="nav-link active">Registro</a></li>
+                <li><a href="#" data-section="agenda" class="nav-link">Agenda</a></li>
+                <li><a href="#" data-section="catalogo" class="nav-link">Catálogo</a></li>
+                <li><button id="logoutBtn" class="btn btn-secondary">Cerrar Sesión</button></li>
+            </ul>
+        </nav>
+
+        <!-- Sección de Registro -->
+        <section id="registroSection" class="main-section">
+            <div class="container">
+                <h2>Registro de Dueños y Mascotas</h2>
+                
+                <!-- Registro de Dueño -->
+                <div class="card">
+                    <h3>Registrar Dueño</h3>
+                    <form id="ownerForm">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="ownerName">Nombre:</label>
+                                <input type="text" id="ownerName" name="ownerName" required>
+                                <span class="error-message" id="ownerNameError"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="ownerPhone">Teléfono:</label>
+                                <input type="text" id="ownerPhone" name="ownerPhone" required>
+                                <span class="error-message" id="ownerPhoneError"></span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="ownerEmail">Correo:</label>
+                            <input type="email" id="ownerEmail" name="ownerEmail" required>
+                            <span class="error-message" id="ownerEmailError"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Registrar Dueño</button>
+                    </form>
+                </div>
+
+                <!-- Registro de Mascota -->
+                <div class="card">
+                    <h3>Registrar Mascota</h3>
+                    <form id="petForm">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="petOwner">Dueño:</label>
+                                <select id="petOwner" name="petOwner" required>
+                                    <option value="">Seleccionar dueño</option>
+                                </select>
+                                <span class="error-message" id="petOwnerError"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="petName">Nombre de la Mascota:</label>
+                                <input type="text" id="petName" name="petName" required>
+                                <span class="error-message" id="petNameError"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="petSpecies">Especie:</label>
+                                <select id="petSpecies" name="petSpecies" required>
+                                    <option value="">Seleccionar especie</option>
+                                    <option value="perro">Perro</option>
+                                    <option value="gato">Gato</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                                <span class="error-message" id="petSpeciesError"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="petBreed">Raza:</label>
+                                <input type="text" id="petBreed" name="petBreed" required>
+                                <span class="error-message" id="petBreedError"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Registrar Mascota</button>
+                    </form>
+                </div>
+
+                <!-- Listas de Registros -->
+                <div class="records-container">
+                    <div class="card">
+                        <h3>Dueños Registrados</h3>
+                        <div id="ownersList" class="records-list"></div>
+                    </div>
+                    <div class="card">
+                        <h3>Mascotas Registradas</h3>
+                        <div id="petsList" class="records-list"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Agenda -->
+        <section id="agendaSection" class="main-section hidden">
+            <div class="container">
+                <h2>Agenda de Citas</h2>
+                
+                <div class="card">
+                    <h3>Agendar Nueva Cita</h3>
+                    <form id="appointmentForm">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="appointmentDate">Fecha:</label>
+                                <input type="date" id="appointmentDate" name="appointmentDate" required>
+                                <span class="error-message" id="appointmentDateError"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="appointmentTime">Hora:</label>
+                                <input type="time" id="appointmentTime" name="appointmentTime" required>
+                                <span class="error-message" id="appointmentTimeError"></span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label for="appointmentPet">Mascota:</label>
+                                <select id="appointmentPet" name="appointmentPet" required>
+                                    <option value="">Seleccionar mascota</option>
+                                </select>
+                                <span class="error-message" id="appointmentPetError"></span>
+                            </div>
+                            <div class="input-group">
+                                <label for="appointmentService">Servicio:</label>
+                                <select id="appointmentService" name="appointmentService" required>
+                                    <option value="">Seleccionar servicio</option>
+                                    <option value="baño">Baño</option>
+                                    <option value="corte">Corte de pelo</option>
+                                    <option value="spa">Spa completo</option>
+                                    <option value="limpieza-dental">Limpieza dental</option>
+                                    <option value="corte-uñas">Corte de uñas</option>
+                                </select>
+                                <span class="error-message" id="appointmentServiceError"></span>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Agendar Cita</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3>Citas Programadas</h3>
+                    <div id="appointmentsList" class="appointments-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Catálogo y Carrito -->
+        <section id="catalogoSection" class="main-section hidden">
+            <div class="container">
+                <h2>Catálogo y Carrito</h2>
+                
+                <div class="catalog-container">
+                    <div class="catalog-section">
+                        <h3>Servicios y Productos</h3>
+                        <div class="filter-buttons">
+                            <button class="btn btn-filter active" data-filter="all">Todos</button>
+                            <button class="btn btn-filter" data-filter="servicio">Servicios</button>
+                            <button class="btn btn-filter" data-filter="producto">Productos</button>
+                        </div>
+                        <div id="catalogGrid" class="catalog-grid"></div>
+                    </div>
+                    
+                    <div class="cart-section">
+                        <div class="card cart-card">
+                            <h3>🛒 Carrito de Compras</h3>
+                            <div id="cartItems" class="cart-items"></div>
+                            <div class="cart-totals">
+                                <div class="total-line">
+                                    <span>Total: Bs<span id="cartTotal">0</span></span>
+                                </div>
+                                <button id="checkoutBtn" class="btn btn-primary btn-full">Proceder al Pago</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Mensajes de éxito/notificaciones -->
+    <div id="notification" class="notification hidden"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
